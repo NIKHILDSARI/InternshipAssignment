@@ -10,11 +10,13 @@ from django.db.models import Q
 @csrf_exempt
 def Banklist(request):
     context = {}
+    bank_dict = {}
     Banks_Queryset = Banks.objects.all()
     for bank in Banks_Queryset:
-        bank_dict = serializers.serialize("python", [bank])[0]['fields']
-        context[bank.id] = bank_dict
+        bank_dict[bank.id] = serializers.serialize("python", [bank])[0]['fields']['name']
+    context['bank_id'] = bank_dict
     return JsonResponse(context,safe=False)
+    
 
 @csrf_exempt
 def Branchdetails(request):
@@ -26,32 +28,35 @@ def Branchdetails(request):
     selected_branch_queryset = Branches.objects.filter(Q(bank=bank_object) & Q(branch = Branch))
     if not selected_branch_queryset:
         return JsonResponse({'error':'Branch not found , Make sure that ' + str(Bank) + ' has ' + str(Branch) +  ' as its Branch'})
+    selected_bank_branch_details_dict={}
     for selected_bank_branch_details  in selected_branch_queryset:
-        selected_bank_branch_details_dict = serializers.serialize('python', [selected_bank_branch_details],fields=('branch',
+        selected_bank_branch_details_dict[selected_bank_branch_details.ifsc] = serializers.serialize('python', [selected_bank_branch_details],fields=('branch',
                                                                                                                    'address',
                                                                                                                    'city',
                                                                                                                    'district',
                                                                                                                    'state') )[0]['fields']
-        selected_bank_branch_details_dict['ifsc'] = selected_bank_branch_details.ifsc
-        print(selected_bank_branch_details_dict)
-        context[selected_bank_branch_details.branch] = selected_bank_branch_details_dict
+        
+    context[Bank] = selected_bank_branch_details_dict
     return JsonResponse(context,safe=False)
 
 @csrf_exempt
-def spicific_Branchdetails(request):
+def specific_Branchdetails(request):
     context = {}
     json_data = json.loads(request.body)
     Branch = json_data['Branch']
+    Branches.objects.filter().select_related() 
     selected_branch_queryset = Branches.objects.filter(branch = Branch)
     if not selected_branch_queryset:
         return JsonResponse({'error':'Branch not found , Make sure that ' + str(Branch) + ' exits'})
+    selected_bank_branch_details_dict={}
     for selected_bank_branch_details  in selected_branch_queryset:
-        selected_bank_branch_details_dict = serializers.serialize('python', [selected_bank_branch_details],fields=('branch',
+        
+        selected_bank_branch_details_dict[selected_bank_branch_details.ifsc] = serializers.serialize('python', [selected_bank_branch_details],fields=('branch',
                                                                                                                    'address',
                                                                                                                    'city',
                                                                                                                    'district',
                                                                                                                    'state') )[0]['fields']
-        selected_bank_branch_details_dict['ifsc'] = selected_bank_branch_details.ifsc
-        print(selected_bank_branch_details_dict)
-        context[selected_bank_branch_details.branch] = selected_bank_branch_details_dict
+        bank_name = Banks.objects.get(id = selected_bank_branch_details.bank_id)
+        selected_bank_branch_details_dict[selected_bank_branch_details.ifsc]['bank_name'] = serializers.serialize("python", [bank_name])[0]['fields']['name']
+    context[Branch] = selected_bank_branch_details_dict
     return JsonResponse(context,safe=False)
