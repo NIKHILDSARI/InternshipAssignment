@@ -3,9 +3,13 @@ InternshipAssignment :-
 
 Postgres CLI -
 
-connect to Postgres , create and populate tables -    psql -U postgres_username -d myDataBase_Name -a -f ./indian_banks.sql
+connect to Postgres , create and populate tables 
+			
+			-    psql -U postgres_username -d myDataBase_Name -a -f ./indian_banks.sql
 
-Note: If file encoding error occurs, add this command at top of .sql file - SET CLIENT_ENCODING TO 'utf8';
+Note: If file encoding error occurs, add this command at top of .sql file 
+
+			- SET CLIENT_ENCODING TO 'utf8';
 
 
 Creating Django project -
@@ -16,7 +20,9 @@ Creating Django project -
 
 			- django-admin startapp  Query
 			
- Note: To auto create legacy data from postgres,use command: python manage.py inspectdb > models.py
+ Note: To auto create legacy data from postgres,use command: 
+ 			
+			python manage.py inspectdb > models.py
  
 Endpoints -                    
 
