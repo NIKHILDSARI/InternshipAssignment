@@ -5,20 +5,20 @@ Postgres CLI -
 
 connect to Postgres , create and populate tables 
 			
-			-    psql -U postgres_username -d myDataBase_Name -a -f ./indian_banks.sql
+			psql -U postgres_username -d myDataBase_Name -a -f ./indian_banks.sql
 
 Note: If file encoding error occurs, add this command at top of .sql file 
 
-			- SET CLIENT_ENCODING TO 'utf8';
+			SET CLIENT_ENCODING TO 'utf8';
 
 
 Creating Django project -
 
-   			- pipenv install django
+   			pipenv install django
 
-			- django-admin startproject Myinternshipassignment .
+			django-admin startproject Myinternshipassignment .
 
-			- django-admin startapp  Query
+			django-admin startapp  Query
 			
  Note: To auto create legacy data from postgres,use command: 
  			
