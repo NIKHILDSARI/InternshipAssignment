@@ -10,7 +10,7 @@ Note: If file encoding error occurs, add this command at top of .sql file - SET 
 
 Creating Django project -
 
-                     	- pipenv install django
+   			- pipenv install django
 
 			- django-admin startproject Myinternshipassignment .
 
