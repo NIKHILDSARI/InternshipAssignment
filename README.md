@@ -10,7 +10,7 @@ Note: If file encoding error occurs, add this command at top of .sql file - SET 
 
 Creating Django project -
 
-                        - pipenv install django
+                     	- pipenv install django
 
 			- django-admin startproject Myinternshipassignment .
 
@@ -34,38 +34,3 @@ Methods used -
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---'banklist/' is handled by views.Banklist 
-
-Banks_Queryset = Banks.objects.all()
---list of all banks present in the database is featched using 'Banks' model.
-
-bank_dict = serializers.serialize("python", [bank])[0]['fields']
---useing serialize method from serializers module to serializes 'bank' object to python object and assigining to bank_dict
-
-2) Endpoint to get particular Branchs detailes when bank and branch name are given (POST) - branchdetails/
-
-3) Endpoint to get particular Branch detailes when branch name is given (POST) - spicific_branchdetails/
-
-
-
-
-used `loads` method from json module to fetch data from request body
-used `serialize` method from serializers module to serialize querysets
