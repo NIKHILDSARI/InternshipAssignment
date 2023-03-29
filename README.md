@@ -5,24 +5,26 @@ Postgres CLI -
 
 connect to Postgres , create and populate tables -    psql -U postgres_username -d myDataBase_Name -a -f ./indian_banks.sql
 
-note: if file encoding error occurs, add this command at top of .sql file - SET CLIENT_ENCODING TO 'utf8';
+Note: If file encoding error occurs, add this command at top of .sql file - SET CLIENT_ENCODING TO 'utf8';
 
 
 Creating Django project -
 
                         - pipenv install django
 
-				                - django-admin startproject Myinternshipassignment .
+			- django-admin startproject Myinternshipassignment .
 
-				                - django-admin startapp  Query
-                        
+			- django-admin startapp  Query
+			
+ Note: To auto create legacy data from postgres,use command: python manage.py inspectdb > models.py
+ 
 Endpoints -                    
 
-1) banklist/ - (GET) Endpoint to get Bank list
+1) banklist/ - (GET) Endpoint to get all banks list.
 
-2)  branchdetails/ - (POST) Endpoint to get particular Branchs detailes when bank and branch name are given 
+2) branchdetails/ - (POST) Endpoint to get particular Branches details when bank and branch name are given.
 
-3) specific_branchdetails/ - (POST) Endpoint to get all bank branches for a particular area  
+3) specific_branchdetails/ - (POST) Endpoint to get all bank branches for a particular area.  
 
 Methods used -
 
